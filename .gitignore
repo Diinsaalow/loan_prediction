@@ -1,0 +1,13 @@
+# Conda / Python
+__pycache__/
+.ipynb_checkpoints/
+*.pyc
+
+# Environments
+env/
+venv/
+.conda/
+
+# OS
+.DS_Store
+Thumbs.db
