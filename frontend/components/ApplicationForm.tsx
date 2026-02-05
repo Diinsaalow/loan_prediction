@@ -1,6 +1,6 @@
 'use client'
 import { useState } from 'react';
-import { FileText, Brain, CheckCircle, XCircle, ChevronDown, Loader2 } from 'lucide-react';
+import { FileText, Brain, CheckCircle, XCircle, ChevronDown, Loader2, X } from 'lucide-react';
 
 const ApplicationForm = () => {
     const [formData, setFormData] = useState({
@@ -58,6 +58,20 @@ const ApplicationForm = () => {
 
             const data = await response.json();
             setResult(data);
+
+            setFormData({
+                Gender: 'Male',
+                Married: 'No',
+                Dependents: '0',
+                Education: 'Graduate',
+                Self_Employed: 'No',
+                ApplicantIncome: '',
+                CoapplicantIncome: '',
+                LoanAmount: '',
+                Loan_Amount_Term: '360',
+                Credit_History: '1.0',
+                Property_Area: 'Urban'
+            });
         } catch (err: any) {
             setError(err.message || 'Something went wrong');
         } finally {
@@ -277,22 +291,40 @@ const ApplicationForm = () => {
 
                 {/* Result Section */}
                 {result && (
-                    <div className="mt-8 animate-in fade-in slide-in-from-top-4 duration-500">
-                        <div className={`rounded-2xl border-l-[6px] shadow-xl p-8 flex flex-col md:flex-row items-center gap-6 ${result.prediction === 1 ? 'bg-green-50 border-green-500' : 'bg-red-50 border-red-500'
-                            }`}>
-                            <div className={`size-20 rounded-full flex items-center justify-center shrink-0 ${result.prediction === 1 ? 'bg-green-100 text-green-600' : 'bg-red-100 text-red-600'
+                    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-300">
+                        <div className="relative w-full max-w-lg bg-white rounded-3xl shadow-2xl overflow-hidden animate-in zoom-in-95 duration-300">
+                            {/* Close Button */}
+                            <button
+                                onClick={() => setResult(null)}
+                                className="absolute top-4 right-4 p-2 rounded-full bg-gray-100 text-gray-500 hover:bg-gray-200 hover:text-gray-900 transition-colors z-10"
+                            >
+                                <X size={20} />
+                            </button>
+
+                            <div className={`p-8 flex flex-col items-center text-center ${result.prediction === 1 ? 'bg-green-50' : 'bg-red-50'
                                 }`}>
-                                {result.prediction === 1 ? <CheckCircle size={48} /> : <XCircle size={48} />}
-                            </div>
-                            <div className="text-center md:text-left flex-1">
-                                <h4 className={`text-2xl font-black mb-2 ${result.prediction === 1 ? 'text-green-900' : 'text-red-900'}`}>
-                                    Decision: {result.result}
+                                <div className={`size-24 rounded-full flex items-center justify-center mb-6 shadow-sm ${result.prediction === 1 ? 'bg-green-100 text-green-600' : 'bg-red-100 text-red-600'
+                                    }`}>
+                                    {result.prediction === 1 ? <CheckCircle size={56} /> : <XCircle size={56} />}
+                                </div>
+                                <h4 className={`text-3xl font-black mb-2 ${result.prediction === 1 ? 'text-green-900' : 'text-red-900'}`}>
+                                    {result.result}
                                 </h4>
-                                <p className="text-gray-600 text-lg leading-relaxed">
+                            </div>
+
+                            <div className="p-8">
+                                <p className="text-gray-600 text-lg leading-relaxed text-center mb-8">
                                     {result.prediction === 1
                                         ? "Congratulations! Based on our analysis, your loan application is likely to be approved. You meet the primary criteria for this credit profile."
                                         : "Our analysis indicates a high risk for this application profile. We recommend reviewing the financial factors or improving credit history before re-applying."}
                                 </p>
+
+                                <button
+                                    onClick={() => setResult(null)}
+                                    className="w-full py-4 rounded-xl bg-[#111418] text-white font-bold text-lg shadow-lg hover:bg-gray-900 transition-all active:scale-[0.98]"
+                                >
+                                    Try Another Prediction
+                                </button>
                             </div>
                         </div>
                     </div>

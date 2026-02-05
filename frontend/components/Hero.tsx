@@ -41,7 +41,7 @@ const Hero = () => {
             </div>
 
             {/* Features Grid */}
-            <div className="px-4 md:px-40 flex justify-center pb-12 bg-white">
+            {/* <div className="px-4 md:px-40 flex justify-center pb-12 bg-white">
                 <div className="max-w-[1000px] w-full grid grid-cols-1 md:grid-cols-3 gap-6 pt-10 border-t border-gray-100">
                     <div className="flex flex-col gap-3 rounded-xl border border-[#e5e7eb] bg-[#f6f7f8] p-6 transition-all hover:shadow-md">
                         <div className="text-primary size-10 flex items-center justify-center bg-white rounded-lg shadow-sm">
@@ -71,7 +71,7 @@ const Hero = () => {
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> */}
         </>
     );
 };
